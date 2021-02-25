@@ -2,9 +2,10 @@ package com.shs.exercise.calculator.data;
 
 import lombok.Data;
 import lombok.NonNull;
-import lombok.Value;
+import org.springframework.validation.annotation.Validated;
 
 @Data
+@Validated
 public class Calculator {
 
     @NonNull
