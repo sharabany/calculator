@@ -1,16 +1,17 @@
 package com.shs.exercise.calculator.data;
 
 import lombok.Data;
-import org.springframework.lang.NonNull;
+import lombok.NonNull;
+import lombok.Value;
 
 @Data
 public class Calculator {
 
-//    @NonNull
+    @NonNull
     private Integer left;
-//    @NonNull
+    @NonNull
     private Integer right;
-
+    @NonNull
     private String operator;
 
 }

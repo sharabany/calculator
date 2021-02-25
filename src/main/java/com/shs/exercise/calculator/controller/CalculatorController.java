@@ -1,7 +1,7 @@
 package com.shs.exercise.calculator.controller;
 
 import com.shs.exercise.calculator.data.Calculator;
-import com.shs.exercise.calculator.resource.CalculatorResource;
+import com.shs.exercise.calculator.service.CalculatorService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,10 +13,10 @@ import javax.annotation.Resource;
 public class CalculatorController {
 
     @Resource
-    private CalculatorResource calculatorResource;
+    private CalculatorService calculatorService;
 
     @PostMapping("/calculate")
     public String calculateNumbersByOperand(@RequestBody @Validated Calculator myCalculator) {
-        return calculatorResource.calculate(myCalculator);
+        return calculatorService.calculate(myCalculator);
     }
 }
