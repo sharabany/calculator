@@ -37,7 +37,7 @@ public class CalculatorControllerApiTest {
     public void test_when_input_is_null_then_get_error() throws Exception {
         setup();
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-                .post("/employees")
+                .post("/calculate")
                 .content(asJsonString(new Calculator(1, 2, "plus"))))
                 .andExpect(status().isOk()).andReturn();
 

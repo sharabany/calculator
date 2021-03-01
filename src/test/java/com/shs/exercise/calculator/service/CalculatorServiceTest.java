@@ -1,6 +1,7 @@
 package com.shs.exercise.calculator.service;
 
 import com.shs.exercise.calculator.data.Calculator;
+import com.shs.exercise.calculator.interfaceAction.CalculatorActionInterface;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -8,9 +9,11 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+
+import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -20,9 +23,10 @@ public class CalculatorServiceTest {
     @InjectMocks
     CalculatorService calculatorService;
     @Mock
-    CalculatorActions calculatorActions;
-    @Mock
     Calculator calculator;
+    @Mock
+    List<CalculatorActionInterface> calculatorActions;
+
 
     @Test
     public void test_when_input_include_unknown_operator_then_return_error() {
@@ -31,17 +35,10 @@ public class CalculatorServiceTest {
         assertThat(result, equalTo("operator 'plusss' is not supported.\r\nSupported operations are: plus, minus, multiply and divide"));
     }
 
-    @Test
-    public void test_when_invoke_method_failed_then_return_error() {
-        setupCalculator("plus");
-        String result = calculatorService.calculate(calculator);
-        assertThat(result, nullValue());
-    }
 
     @Test
-    public void test_when_invoke_method_success_then_return_result() {
+    public void test_when_find_operator_class_success_then_return_result() {
         setupCalculator("plus");
-        when(calculatorActions.plus(2, 1)).thenReturn("2 + 1 = 3");
         String result = calculatorService.calculate(calculator);
         assertThat(result, equalTo("2 + 1 = 3"));
     }
@@ -51,5 +48,7 @@ public class CalculatorServiceTest {
         when(calculator.getLeft()).thenReturn(2);
         when(calculator.getRight()).thenReturn(1);
 
+        List<CalculatorActionInterface> calculatorActionInterfaces = singletonList(new PlusAction());
+        when(calculatorActions.stream()).thenReturn(calculatorActionInterfaces.stream());
     }
 }
